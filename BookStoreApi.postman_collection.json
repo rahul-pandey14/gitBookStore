@@ -1,0 +1,475 @@
+{
+	"info": {
+		"_postman_id": "0c91e232-9217-41bc-8c7e-f14a54eec41a",
+		"name": "BookStoreApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6743992"
+	},
+	"item": [
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check user created and status is 201\",function(){\r",
+									"    pm.expect(pm.response.code).eql(201);\r",
+									"});\r",
+									"var body=pm.response.json();\r",
+									"var value=body.userID\r",
+									"console.log(value)\r",
+									"\r",
+									" pm.environment.set(\"userID\",value)\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"Url\",\"https://bookstore.toolsqa.com/\")\r",
+									"var userName = \"TestUser\"+Math.floor((Math.random()*1000)+1);\r",
+									"console.log(userName)\r",
+									"pm.environment.set(\"userName\",userName)\r",
+									"pm.environment.set(\"password\",\"Test_14@1225#\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"{{userName}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}Account/v1/User",
+							"host": [
+								"{{Url}}Account"
+							],
+							"path": [
+								"v1",
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check status is 200\",function(){\r",
+									"    pm.expect(pm.response.code).eql(200);\r",
+									"});\r",
+									"\r",
+									" var Jsondata=JSON.parse(responseBody);\r",
+									" //console.log(Jsondata)\r",
+									"  var token=Jsondata.token\r",
+									"  console.log(token)\r",
+									"  pm.environment.set(\"token\",token)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"{{userName}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}Account/v1/GenerateToken",
+							"host": [
+								"{{Url}}Account"
+							],
+							"path": [
+								"v1",
+								"GenerateToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AuthorizationUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check status is 200\",function(){\r",
+									"    pm.expect(pm.response.code).eql(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"{{userName}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}Account/v1/Authorized",
+							"host": [
+								"{{Url}}Account"
+							],
+							"path": [
+								"v1",
+								"Authorized"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "oAuth 2.0",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "accessToken",
+									"type": "any"
+								},
+								{
+									"key": "useBrowser",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "grant_type",
+									"value": "authorization_code",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "1c0dcba25d6f0ff9510579f5731b1deff986eeb4",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "5f9c379c411c49e",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://api.imgur.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://api.imgur.com/oauth2/authorize",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "https://www.postman.com/oauth2/callback",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Token_access",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.imgur.com/3/account/me/images",
+							"protocol": "https",
+							"host": [
+								"api",
+								"imgur",
+								"com"
+							],
+							"path": [
+								"3",
+								"account",
+								"me",
+								"images"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BookStore",
+			"item": [
+				{
+					"name": "GetBook",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"check status code 200\",function(){\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"  var bookData=pm.response.json();\r",
+									"  var firstBookId = bookData.books[0].isbn;\r",
+									"  var secondBookId = bookData.books[1].isbn;\r",
+									"  var thirdBookId = bookData.books[2].isbn;\r",
+									"  var fourthBookId = bookData.books[3].isbn;\r",
+									"  var fifthBookId = bookData.books[4].isbn;\r",
+									"  var sixthBookId = bookData.books[5].isbn;\r",
+									"  var seventhBookId = bookData.books[6].isbn;\r",
+									"  var eighthBookId = bookData.books[7].isbn;\r",
+									"  console.log(seventhBookId);\r",
+									"\r",
+									"  pm.environment.set(\"1bkId\",firstBookId);\r",
+									"  pm.environment.set(\"2bkId\",secondBookId);\r",
+									"  pm.environment.set(\"3bkId\",thirdBookId);\r",
+									"  pm.environment.set(\"4bkId\",fourthBookId);\r",
+									"  pm.environment.set(\"5bkId\",fifthBookId);\r",
+									"  pm.environment.set(\"6bkId\",sixthBookId);\r",
+									"  pm.environment.set(\"7bkId\",seventhBookId);\r",
+									"  pm.environment.set(\"8bkId\",eighthBookId);\r",
+									" "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}BookStore/v1/Books",
+							"host": [
+								"{{Url}}BookStore"
+							],
+							"path": [
+								"v1",
+								"Books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add book to user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check status is 201\",function(){\r",
+									"    pm.expect(pm.response.code).eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"{{userID}}\",\r\n  \"collectionOfIsbns\": [\r\n    {\r\n      \"isbn\": \"{{1bkId}}\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}BookStore/v1/Books",
+							"host": [
+								"{{Url}}BookStore"
+							],
+							"path": [
+								"v1",
+								"Books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}BookStore/v1/Book?ISBN={{1bkId}}",
+							"host": [
+								"{{Url}}BookStore"
+							],
+							"path": [
+								"v1",
+								"Book"
+							],
+							"query": [
+								{
+									"key": "ISBN",
+									"value": "{{1bkId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateBookDetails",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"{{userID}}\",\r\n  \"isbn\": \"{{1bkId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}BookStore/v1/Books/{{1bkId}}",
+							"host": [
+								"{{Url}}BookStore"
+							],
+							"path": [
+								"v1",
+								"Books",
+								"{{1bkId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteBookByID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}BookStore/v1/Books?UserId={{userID}}",
+							"host": [
+								"{{Url}}BookStore"
+							],
+							"path": [
+								"v1",
+								"Books"
+							],
+							"query": [
+								{
+									"key": "UserId",
+									"value": "{{userID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
